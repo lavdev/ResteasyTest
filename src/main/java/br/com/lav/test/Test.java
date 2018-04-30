@@ -33,8 +33,8 @@ public class Test implements Serializable{
 	}
 
 	/***
-	 * 
-	 * @return
+	 * Get class object instance
+	 * @return Test
 	 */
 	public static Test getInstance() {
 		if (instance == null) {
@@ -44,7 +44,7 @@ public class Test implements Serializable{
 	}
 
 	/**
-	 * GET all post from web service provided
+	 * GET all posts from provided REST WEB service
 	 * 
 	 * @return Post[]
 	 */
@@ -66,20 +66,20 @@ public class Test implements Serializable{
 	}
 	
 	/**
-	 * GET all post from web service provided
+	 * GET one or more specific post by User
 	 * 
 	 * @return Post[]
 	 */
-	public Post[] getPost(String param) {
-		target = client.target("https://jsonplaceholder.typicode.com/?posts=" + param);
-		Response response = target.request().get();
-		String value = response.readEntity(String.class);
+	public Post[] getPostByUser(final String param) {
+		target = client.target("https://jsonplaceholder.typicode.com/posts?userId=" + param);
+		final Response response = target.request().get();
+		final String value = response.readEntity(String.class);
 		Post[] posts = null;
 		JsonNode rootNode;
 		try {
 			rootNode = mapper.readTree(value);
 			posts = mapper.readValue(rootNode.toString(), Post[].class);
-		} catch (IOException ex) {
+		} catch (final IOException ex) {
 			System.err.println(ex.getLocalizedMessage());
 		} finally {
 			response.close();

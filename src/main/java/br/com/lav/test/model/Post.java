@@ -25,6 +25,12 @@ import org.apache.commons.lang.builder.ToStringBuilder;
     "title",
     "body"
 })
+
+/***
+ * Model class used to bind JSON retrieved data from REST Webservice 
+ * @author laverson
+ *
+ */
 public class Post implements Serializable {
 
     @JsonProperty("userId")
